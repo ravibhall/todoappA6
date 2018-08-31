@@ -1,0 +1,51 @@
+@import "~bootstrap/dist/css/bootstrap.css";
+.body-bg {}
+
+.title {
+  color: black;
+  text-decoration: underline;
+  text-align: center;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.edit-task {
+  max-height: 25px;
+  min-height: 25px;
+}
+
+.icon-width {
+  width: 1%;
+}
+
+.app-row {
+  height: 50px;
+}
+
+.center {
+  width: 100%;
+  text-align: center;
+}
+
+.cancel-icon {
+  cursor: not-allowed;
+}
+
+.hand {
+  cursor: pointer;
+}
+
+.nobutton {
+  background: none;
+  color: inherit;
+  border: none;
+}
+.radio-button{
+	width: 15px;
+	height: 15px;
+}
+.inline{
+	display: inline;
+}

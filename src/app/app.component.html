@@ -1,20 +1,75 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+<div class="container">
+  <div class="title">
+    <h1>To Do List</h1>
+  </div>
+  <br>
+  <div class="row">
+    <table class="table table-dark table-striped">
+      <tr class="app-row">
+        <td>
+          <div class="center">
+            <input type="radio" class="form-control radio-button inline" name="forWhat" value="true" [(ngModel)]="forWhat">
+            <h4 class="inline">Use Cookies</h4>
+          </div>
+        </td>
+        <td>
+          <div class="center">
+            <input type="radio" class="form-control radio-button inline" name="forWhat" value="false" [(ngModel)]="forWhat">
+            <h4 class="inline">Use API</h4>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-8">
+      <input type="text" name="task-input" id="task-input" class="form-control full-width" [(ngModel)]="newTask" placeholder="Type here........"
+        (keyup.enter)="addTask(newTask)">
+    </div>
+    <div class="col-4">
+      <button class="btn btn-primary full-width {{(newTask===undefined || newTask.length===0)?'cancel-icon':'hand'}}" (click)="addTask(newTask)"
+        [disabled]="newTask===undefined || newTask.length===0">ADD</button>
+    </div>
+  </div>
+  <br>
+  <table class="table table-dark table-striped">
+    <ng-container *ngIf="tasks.length === 0">
+      <tr class="app-row">
+        <td>
+          <div class="center">No Tasks Today</div>
+        </td>
+      </tr>
+    </ng-container>
+    <ng-container *ngIf="tasks.length">
+      <tr class="app-row" *ngFor="let task of tasks; let i=index; let odd=odd; trackBy: trackById">
+        <td class="icon-width">{{i+1}}
+        </td>
+        <td>
+          <span *ngIf="!task.edit">{{task.text}}</span>
+          <span *ngIf="task.edit">
+            <input type="text" id="input-{{i}}" name="taskEdit" class="form-control edit-task" [(ngModel)]="task.editedTask" placeholder="Type here........"
+              (keyup.enter)="saveTask(task,i)">
+          </span>
+        </td>
+        <!-- edit -->
+        <td class="icon-width" *ngIf="!task.edit">
+          <button class="fa fa-pencil nobutton hand" aria-hidden="true" (click)="editTask(task,i)"></button>
+        </td>
+        <!-- save -->
+        <td class="icon-width" *ngIf="task.edit">
+          <button class="fa fa-floppy-o nobutton {{(task.editedTask === task.text)?'cancel-icon':'hand'}}" aria-hidden="true" (click)="saveTask(task,i)"
+            [disabled]="task.editedTask === task.text"></button>
+        </td>
+        <!-- delete -->
+        <td class="icon-width" *ngIf="!task.edit">
+          <button class="fa fa-trash-o nobutton hand" aria-hidden="true" (click)="deleteTask(task)"></button>
+        </td>
+        <!-- cancel -->
+        <td class="icon-width" *ngIf="task.edit">
+          <button class="fa fa-ban nobutton hand" aria-hidden="true" (click)="cancelTask(task)"></button>
+        </td>
+      </tr>
+    </ng-container>
+  </table>
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
-
